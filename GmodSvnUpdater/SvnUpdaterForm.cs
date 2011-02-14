@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GmodSvnUpdater.Properties;
 using SharpSvn;
@@ -45,30 +46,28 @@ namespace GmodSvnUpdater
                 {
                     Properties.Settings.Default.AddonDir = folderBrowserDialog.SelectedPath;
                     Properties.Settings.Default.Save();
-                    InitializeSvnStuff(); 
+                    InitializeSvnStuff();
                 }
             }
         }
 
         private void updateBut_Click(object sender, EventArgs e)
         {
-            using (SvnClient svnClient = new SvnClient())
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.AddonDir))
             {
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.AddonDir))
-                {
-                    foreach (var dir in Directory.GetDirectories(Properties.Settings.Default.AddonDir))
-                    {
-                        if (Directory.Exists(dir + "\\.svn"))
-                        {
-                            svnClient.Update(dir);
-                        }
-                    }
-                    MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
-                }
-                else
-                {
-                    MessageBox.Show(Resources.updateAddonDirErrorMessage, Resources.updateErrorHeader);
-                }
+                Parallel.ForEach(Directory.GetDirectories(Properties.Settings.Default.AddonDir), dir =>
+                                                                                                 {
+                                                                                                     if (Directory.Exists(dir +"\\.svn"))
+                                                                                                     {
+                                                                                                         SvnClient svnClient = new SvnClient();
+                                                                                                         svnClient.Update(dir);
+                                                                                                     }
+                                                                                                 });
+                MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
+            }
+            else
+            {
+                MessageBox.Show(Resources.updateAddonDirErrorMessage, Resources.updateErrorHeader);
             }
         }
     }
