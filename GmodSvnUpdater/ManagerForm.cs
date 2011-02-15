@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,7 +31,7 @@ namespace GmodSvnUpdater
                 listAddonsList.Items.Clear();
                 foreach (var dir in Directory.GetDirectories(Settings.Default.AddonDir))
                 {
-                    if (Directory.Exists(dir + "\\.svn") || Directory.Exists(dir + "\\.git"))
+                    if (Directory.Exists(dir + "\\.svn") || (Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0))
                     {
                         listAddonsList.Items.Add(dir.Substring(dir.LastIndexOf("\\") + 1));
                     }
@@ -62,10 +63,31 @@ namespace GmodSvnUpdater
             {
                 Parallel.ForEach(Directory.GetDirectories(Settings.Default.AddonDir), dir =>
                                                                                                  {
+                                                                                                     // Check if the addon is updated by SVN
                                                                                                      if (Directory.Exists(dir + "\\.svn"))
                                                                                                      {
-                                                                                                         var svnClient = new SvnClient();
-                                                                                                         svnClient.Update(dir);
+
+                                                                                                         try
+                                                                                                         {
+                                                                                                             var svnClient = new SvnClient();
+                                                                                                             svnClient.Update(dir);
+                                                                                                         }
+                                                                                                         catch (SvnWorkingCopyLockException)
+                                                                                                         {
+                                                                                                             var svnClient = new SvnClient();
+                                                                                                             svnClient.CleanUp(dir);
+                                                                                                             svnClient.Update(dir);
+                                                                                                             throw;
+                                                                                                         }
+                                                                                                     }
+                                                                                                     // Check if there are any git addons and if the user has git installed and if both are true then "update" the addons
+                                                                                                     else if (Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
+                                                                                                     {
+                                                                                                         var processInfo = new ProcessStartInfo("git") {WorkingDirectory = dir, Arguments = "fetch"};
+                                                                                                         var process = Process.Start(processInfo);
+                                                                                                         process.WaitForExit();
+                                                                                                         process.StartInfo.Arguments = "merge origin/master";
+                                                                                                         process.Start();
                                                                                                      }
                                                                                                  });
                 MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
@@ -86,31 +108,43 @@ namespace GmodSvnUpdater
                 return;
             }
             // Get the url to the repository
-            var answer = Microsoft.VisualBasic.Interaction.InputBox("Please give the url to the repository",
-                                                                    "Add...", "", 100, 100);
-            // Make sure the user actually answered something
-            if (answer == String.Empty)
+            string answer;
+            if (Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
             {
-                MessageBox.Show(@"You need to give the URL", @"No url...");
+                answer = Microsoft.VisualBasic.Interaction.InputBox("Please give the url to the repository\ngit support enabled",
+                                                                    "Add...", "url"); 
+            }
+            else
+            {
+                answer = Microsoft.VisualBasic.Interaction.InputBox("Please give the url to the repository\ngit support disabled",
+                                                                    "Add...", "url");
+            }
+            if (answer == string.Empty)
+            {
                 return;
             }
-            // Check if the url is for a git repository
+            if (answer == "url")
+            {
+                MessageBox.Show(@"You must give the url", @"No url given");
+                return;
+            }
             if (answer.LastIndexOf("git") != 0)
             {
-                var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...", "", 100, 100);
-                GitSharp.Git.Clone(new GitSharp.Commands.CloneCommand{Source = answer, Directory = Settings.Default.AddonDir + "\\" + dir});
+                var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...", "");
+                Process.Start("git", string.Format("clone {0} {1}", answer, Settings.Default.AddonDir + "\\" + dir)).WaitForExit();
             }
-            // ...else checkout a SVN repository
+                // ...else checkout a SVN repository
             else
             {
                 var url = new Uri(answer);
                 using (var svnClient = new SvnClient())
                 {
-                    var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...", "", 100, 100);
+                    var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...");
                     svnClient.CheckOut(url, Settings.Default.AddonDir + "\\" + dir);
-                } 
+                }
             }
             InitializeStuff();
+            // Check if the url is for a git repository
         }
 
         private void RemoveButtonClick(object sender, EventArgs e)
