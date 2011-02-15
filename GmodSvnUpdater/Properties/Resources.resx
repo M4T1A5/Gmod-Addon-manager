@@ -123,19 +123,12 @@
 			Shown when all updates were completed succesfully
 		</comment>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="gmod_pala" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gmod_pala.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="notSetString" xml:space="preserve">
     <value>ADDON DIR NOT SET
 PLEASE SET IT NOW</value>
     <comment>
 			Text to show when the addon dir is not set
 		</comment>
-  </data>
-  <data name="gmod-logo-big" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gmod-logo-big.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="updateErrorHeader" xml:space="preserve">
     <value>Update error</value>
@@ -154,8 +147,5 @@ PLEASE SET IT NOW</value>
     <comment>
 			Shown if trying to update without setting the addons directory
 		</comment>
-  </data>
-  <data name="gmod_pala1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gmod_pala1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
