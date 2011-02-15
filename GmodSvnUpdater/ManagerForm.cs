@@ -15,6 +15,9 @@ namespace GmodSvnUpdater
             InitializeStuff();
         }
 
+        ///<summary>
+        /// Show the user if addon dir is not set and if it is list all addons in the listView
+        /// </summary>
         public void InitializeStuff()
         {
             if (Settings.Default.AddonDir == String.Empty)
@@ -37,8 +40,10 @@ namespace GmodSvnUpdater
 
         private void SetDirButClick(object sender, EventArgs e)
         {
+            // Ask user for the addon folder
             var folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.ShowDialog();
+            // Check if user actually gave a directory and save it to settings
             if (folderBrowserDialog.SelectedPath != String.Empty)
             {
                 if (folderBrowserDialog.SelectedPath.ToLower().IndexOf("addons") != 0)
@@ -52,6 +57,7 @@ namespace GmodSvnUpdater
 
         private void UpdateButClick(object sender, EventArgs e)
         {
+            // Check if the addon dir is set and then update every SVN repository
             if (!string.IsNullOrEmpty(Settings.Default.AddonDir))
             {
                 Parallel.ForEach(Directory.GetDirectories(Settings.Default.AddonDir), dir =>
@@ -64,6 +70,7 @@ namespace GmodSvnUpdater
                                                                                                  });
                 MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
             }
+            // ...else give user eror that the dir is not set
             else
             {
                 MessageBox.Show(Resources.updateAddonDirErrorMessage, Resources.updateErrorHeader);
@@ -72,23 +79,28 @@ namespace GmodSvnUpdater
 
         private void AddButtonClick(object sender, EventArgs e)
         {
+            // Warn user if addon directory is not set
             if (Settings.Default.AddonDir == String.Empty)
             {
                 MessageBox.Show(Resources.updateAddonDirErrorMessage, Resources.updateErrorHeader);
                 return;
             }
+            // Get the url to the repository
             var answer = Microsoft.VisualBasic.Interaction.InputBox("Please give the url to the repository",
                                                                     "Add...", "", 100, 100);
+            // Make sure the user actually answered something
             if (answer == String.Empty)
             {
                 MessageBox.Show(@"You need to give the URL", @"No url...");
                 return;
             }
+            // Check if the url is for a git repository
             if (answer.LastIndexOf("git") != 0)
             {
                 var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...", "", 100, 100);
                 GitSharp.Git.Clone(new GitSharp.Commands.CloneCommand{Source = answer, Directory = Settings.Default.AddonDir + "\\" + dir});
             }
+            // ...else checkout a SVN repository
             else
             {
                 var url = new Uri(answer);
@@ -103,6 +115,7 @@ namespace GmodSvnUpdater
 
         private void RemoveButtonClick(object sender, EventArgs e)
         {
+            // Make sure user wants to remove the addon and remove if so
             DialogResult dlgResult = MessageBox.Show(string.Format("Do you really want to remove {0}?", listAddonsList.SelectedItems[0].Text), @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dlgResult == DialogResult.Yes)
             {
@@ -113,6 +126,12 @@ namespace GmodSvnUpdater
             InitializeStuff();
         }
 
+        /// <summary>
+        /// Removes read-only flag from .svn and .git files and removes them and the folders they are in
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="wildcardPattern"></param>
+        /// <param name="top"></param>
         public static void DeleteSubFolders(string folderPath, string wildcardPattern, bool top)
         {
             String[] list;
