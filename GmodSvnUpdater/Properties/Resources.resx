@@ -112,16 +112,41 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="updateCompleteMessage" xml:space="preserve">
+    <value>Done updating addons</value>
+    <comment>
+			Shown when all updates were completed succesfully
+		</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="gmod_pala" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gmod_pala.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="notSetString" xml:space="preserve">
     <value>ADDON DIR NOT SET
 PLEASE SET IT NOW</value>
     <comment>
 			Text to show when the addon dir is not set
+		</comment>
+  </data>
+  <data name="gmod-logo-big" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gmod-logo-big.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="updateErrorHeader" xml:space="preserve">
+    <value>Update error</value>
+    <comment>
+			The header of the error message that is shown if the addons directory is not set while trying to update
+		</comment>
+  </data>
+  <data name="updateCompleteHeader" xml:space="preserve">
+    <value>Update complete</value>
+    <comment>
+			The header of the messagebox that is shown when all addons are updated succesfully
 		</comment>
   </data>
   <data name="updateAddonDirErrorMessage" xml:space="preserve">
@@ -130,22 +155,7 @@ PLEASE SET IT NOW</value>
 			Shown if trying to update without setting the addons directory
 		</comment>
   </data>
-  <data name="updateErrorHeader" xml:space="preserve">
-    <value>Update error</value>
-    <comment>
-			The header of the error message that is shown if the addons directory is not set while trying to update
-		</comment>
-  </data>
-  <data name="updateCompleteMessage" xml:space="preserve">
-    <value>Done updating addons</value>
-    <comment>
-			Shown when all updates were completed succesfully
-		</comment>
-  </data>
-  <data name="updateCompleteHeader" xml:space="preserve">
-    <value>Update complete</value>
-    <comment>
-			The header of the messagebox that is shown when all addons are updated succesfully
-		</comment>
+  <data name="gmod_pala1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gmod_pala1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

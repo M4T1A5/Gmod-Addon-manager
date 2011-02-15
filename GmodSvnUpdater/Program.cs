@@ -14,7 +14,7 @@ namespace GmodSvnUpdater
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SvnUpdaterForm());
+            Application.Run(new ManagerForm());
         }
     }
 }

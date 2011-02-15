@@ -60,6 +60,27 @@ namespace GmodSvnUpdater.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap gmod_logo_big {
+            get {
+                object obj = ResourceManager.GetObject("gmod-logo-big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap gmod_pala {
+            get {
+                object obj = ResourceManager.GetObject("gmod_pala", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap gmod_pala1 {
+            get {
+                object obj = ResourceManager.GetObject("gmod_pala1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to ADDON DIR NOT SET
         ///PLEASE SET IT NOW.
