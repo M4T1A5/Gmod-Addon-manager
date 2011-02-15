@@ -150,12 +150,23 @@ namespace GmodSvnUpdater
         private void RemoveButtonClick(object sender, EventArgs e)
         {
             // Make sure user wants to remove the addon and remove if so
-            DialogResult dlgResult = MessageBox.Show(string.Format("Do you really want to remove {0}?", listAddonsList.SelectedItems[0].Text), @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dlgResult = DialogResult.None;
+            if (listAddonsList.SelectedItems.Count == 1)
+            {
+                dlgResult = MessageBox.Show(string.Format("Do you really want to remove {0}?", listAddonsList.SelectedItems[0].Text), @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question); 
+            }
+            else
+            {
+                dlgResult = MessageBox.Show(string.Format("Do you really want to remove all those addons ({0})?", listAddonsList.SelectedItems.Count), @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
             if (dlgResult == DialogResult.Yes)
             {
-                DeleteSubFolders(Settings.Default.AddonDir + "\\" + listAddonsList.SelectedItems[0].Text, ".svn", true);
-                DeleteSubFolders(Settings.Default.AddonDir + "\\" + listAddonsList.SelectedItems[0].Text, ".git", true);
-                Directory.Delete(Settings.Default.AddonDir + "\\" + listAddonsList.SelectedItems[0].Text, true);
+                foreach (ListViewItem item in listAddonsList.SelectedItems)
+                {
+                    DeleteSubFolders(Settings.Default.AddonDir + "\\" + item.Text, ".svn", true);
+                    DeleteSubFolders(Settings.Default.AddonDir + "\\" + item.Text, ".git", true);
+                    Directory.Delete(Settings.Default.AddonDir + "\\" + item.Text, true);
+                }
             }
             InitializeStuff();
         }

@@ -34,7 +34,6 @@
             this.listAddonsList = new System.Windows.Forms.ListView();
             this.addButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
-            this.editButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // updateBut
@@ -71,7 +70,6 @@
             // 
             this.listAddonsList.BackColor = System.Drawing.Color.White;
             this.listAddonsList.Location = new System.Drawing.Point(12, 85);
-            this.listAddonsList.MultiSelect = false;
             this.listAddonsList.Name = "listAddonsList";
             this.listAddonsList.Size = new System.Drawing.Size(165, 165);
             this.listAddonsList.TabIndex = 3;
@@ -98,15 +96,6 @@
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.RemoveButtonClick);
             // 
-            // editButton
-            // 
-            this.editButton.Location = new System.Drawing.Point(183, 143);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(75, 23);
-            this.editButton.TabIndex = 6;
-            this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
-            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -114,7 +103,6 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.editButton);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.listAddonsList);
@@ -142,7 +130,6 @@
         private System.Windows.Forms.ListView listAddonsList;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button removeButton;
-        private System.Windows.Forms.Button editButton;
     }
 }
 
