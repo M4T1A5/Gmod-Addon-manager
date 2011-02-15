@@ -84,10 +84,10 @@ namespace GmodSvnUpdater
                 MessageBox.Show(@"You need to give the URL", @"No url...");
                 return;
             }
-            if (answer.IndexOf("git") != 0)
+            if (answer.LastIndexOf("git") != 0)
             {
                 var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...", "", 100, 100);
-                GitSharp.Git.Clone(answer, Settings.Default.AddonDir + "\\" + dir);
+                GitSharp.Git.Clone(new GitSharp.Commands.CloneCommand{Source = answer, Directory = Settings.Default.AddonDir + "\\" + dir});
             }
             else
             {
