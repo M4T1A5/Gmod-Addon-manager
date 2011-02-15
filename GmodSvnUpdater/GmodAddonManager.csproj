@@ -8,8 +8,8 @@
     <ProjectGuid>{276B88B2-0CC7-4723-AB72-C06DC062D942}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GmodSvnUpdater</RootNamespace>
-    <AssemblyName>GmodSvnUpdater</AssemblyName>
+    <RootNamespace>GmodAddonManager</RootNamespace>
+    <AssemblyName>GmodAddonManager</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>

@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GmodSvnUpdater.Properties;
+using GmodAddonManager.Properties;
 using SharpSvn;
 
-namespace GmodSvnUpdater
+namespace GmodAddonManager
 {
     public partial class ManagerForm : Form
     {

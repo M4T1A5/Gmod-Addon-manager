@@ -1,4 +1,4 @@
-﻿namespace GmodSvnUpdater
+﻿namespace GmodAddonManager
 {
     partial class ManagerForm
     {

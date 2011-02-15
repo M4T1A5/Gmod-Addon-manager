@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GmodSvnUpdater.Properties {
+namespace GmodAddonManager.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
