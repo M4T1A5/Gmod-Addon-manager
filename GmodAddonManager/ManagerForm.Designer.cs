@@ -28,55 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.updateBut = new System.Windows.Forms.Button();
             this.listAddonsList = new System.Windows.Forms.ListView();
-            this.addButton = new System.Windows.Forms.Button();
-            this.removeButton = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.UpdateButton = new System.Windows.Forms.ToolStripButton();
+            this.DeleteButton = new System.Windows.Forms.ToolStripButton();
+            this.AddButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // updateBut
-            // 
-            this.updateBut.Image = global::GmodAddonManager.Properties.Resources.arrow_refresh;
-            this.updateBut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.updateBut.Location = new System.Drawing.Point(12, 12);
-            this.updateBut.Name = "updateBut";
-            this.updateBut.Padding = new System.Windows.Forms.Padding(70, 0, 68, 0);
-            this.updateBut.Size = new System.Drawing.Size(265, 52);
-            this.updateBut.TabIndex = 0;
-            this.updateBut.Text = "Update Addons";
-            this.updateBut.UseVisualStyleBackColor = true;
-            this.updateBut.Click += new System.EventHandler(this.UpdateButClick);
             // 
             // listAddonsList
             // 
             this.listAddonsList.BackColor = System.Drawing.Color.White;
-            this.listAddonsList.Location = new System.Drawing.Point(12, 85);
+            this.listAddonsList.Location = new System.Drawing.Point(12, 28);
             this.listAddonsList.Name = "listAddonsList";
-            this.listAddonsList.Size = new System.Drawing.Size(229, 181);
+            this.listAddonsList.Size = new System.Drawing.Size(261, 181);
             this.listAddonsList.TabIndex = 3;
             this.listAddonsList.UseCompatibleStateImageBehavior = false;
             this.listAddonsList.View = System.Windows.Forms.View.List;
             // 
-            // addButton
+            // toolStrip1
             // 
-            this.addButton.BackColor = System.Drawing.SystemColors.Control;
-            this.addButton.Image = global::GmodAddonManager.Properties.Resources.add;
-            this.addButton.Location = new System.Drawing.Point(247, 85);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(30, 30);
-            this.addButton.TabIndex = 4;
-            this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.AddButtonClick);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UpdateButton,
+            this.DeleteButton,
+            this.AddButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(285, 25);
+            this.toolStrip1.TabIndex = 6;
+            this.toolStrip1.Text = "toolStrip";
             // 
-            // removeButton
+            // UpdateButton
             // 
-            this.removeButton.Image = global::GmodAddonManager.Properties.Resources.delete;
-            this.removeButton.Location = new System.Drawing.Point(247, 121);
-            this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(30, 30);
-            this.removeButton.TabIndex = 5;
-            this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.RemoveButtonClick);
+            this.UpdateButton.Image = global::GmodAddonManager.Properties.Resources.arrow_refresh;
+            this.UpdateButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.UpdateButton.Name = "UpdateButton";
+            this.UpdateButton.Size = new System.Drawing.Size(65, 22);
+            this.UpdateButton.Text = "Update";
+            this.UpdateButton.Click += new System.EventHandler(this.UpdateButtonClick);
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.DeleteButton.Image = global::GmodAddonManager.Properties.Resources.delete;
+            this.DeleteButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(60, 22);
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
+            // 
+            // AddButton
+            // 
+            this.AddButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.AddButton.Image = global::GmodAddonManager.Properties.Resources.add;
+            this.AddButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(49, 22);
+            this.AddButton.Text = "Add";
+            this.AddButton.Click += new System.EventHandler(this.AddButtonClick);
             // 
             // ManagerForm
             // 
@@ -84,11 +93,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(289, 278);
-            this.Controls.Add(this.removeButton);
-            this.Controls.Add(this.addButton);
+            this.ClientSize = new System.Drawing.Size(285, 221);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.listAddonsList);
-            this.Controls.Add(this.updateBut);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -97,16 +104,20 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Garry\'s mod Addon Manager";
             this.TransparencyKey = System.Drawing.Color.Maroon;
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button updateBut;
         private System.Windows.Forms.ListView listAddonsList;
-        private System.Windows.Forms.Button addButton;
-        private System.Windows.Forms.Button removeButton;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton UpdateButton;
+        private System.Windows.Forms.ToolStripButton DeleteButton;
+        private System.Windows.Forms.ToolStripButton AddButton;
     }
 }
 

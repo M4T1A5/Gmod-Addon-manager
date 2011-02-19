@@ -162,7 +162,7 @@ namespace GmodAddonManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Addons.
+        ///   Looks up a localized string similar to Update.
         /// </summary>
         internal static string updateButDefaultText {
             get {

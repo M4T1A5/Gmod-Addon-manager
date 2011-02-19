@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GmodAddonManager.Properties;
@@ -55,11 +56,9 @@ namespace GmodAddonManager
             }
         }
 
-        private void UpdateButClick(object sender, EventArgs e)
+        private void UpdateButtonClick(object sender, EventArgs e)
         {
-            updateBut.Text = Resources.updateButtonUpdating;
-            // Make sure the text actually does change before updating anything
-            System.Threading.Thread.Sleep(5);
+            UpdateButton.Text = Resources.updateButtonUpdating;
             // Update all repositories in a nice threaded way
             Parallel.ForEach(Directory.GetDirectories(_installDir), dir =>
                                                                     {
@@ -89,7 +88,7 @@ namespace GmodAddonManager
                                                                             process.Start();
                                                                         }
                                                                     });
-            updateBut.Text = Resources.updateButDefaultText;
+            UpdateButton.Text = Resources.updateButDefaultText;
             MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
         }
 
@@ -133,7 +132,7 @@ namespace GmodAddonManager
             UpdateStuff();
         }
 
-        private void RemoveButtonClick(object sender, EventArgs e)
+        private void DeleteButtonClick(object sender, EventArgs e)
         {
             // Make sure user wants to remove the addon and remove if so
             DialogResult dlgResult;

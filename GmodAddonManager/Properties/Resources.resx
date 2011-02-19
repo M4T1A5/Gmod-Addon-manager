@@ -149,7 +149,7 @@ PLEASE SET IT NOW</value>
     <value>Folder name...</value>
   </data>
   <data name="updateButDefaultText" xml:space="preserve">
-    <value>Update Addons</value>
+    <value>Update</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
