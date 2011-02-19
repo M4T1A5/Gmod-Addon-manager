@@ -120,6 +120,24 @@ namespace GmodAddonManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit error.
+        /// </summary>
+        internal static string editErrorHeader {
+            get {
+                return ResourceManager.GetString("editErrorHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only edit one addon at a time.
+        /// </summary>
+        internal static string editTooManySelected {
+            get {
+                return ResourceManager.GetString("editTooManySelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No adddons dir found.
         ///Make sure you have installed and launched Garry&apos;s mod at least once
         ///

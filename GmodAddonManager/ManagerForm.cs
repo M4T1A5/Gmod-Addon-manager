@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -235,6 +236,51 @@ namespace GmodAddonManager
             if (top == false)
             {
                 Directory.Delete(folderPath);
+            }
+        }
+
+        private void EditButtonClick(object sender, EventArgs e)
+        {
+            if (listAddonsList.SelectedItems.Count > 1)
+            {
+                MessageBox.Show(Resources.editTooManySelected, Resources.editErrorHeader);
+                return;
+            }
+            var addonDir = _installDir + "\\" + listAddonsList.SelectedItems[0].Text;
+            var answer = Microsoft.VisualBasic.Interaction.InputBox("Give the new url of the repository");
+            Uri newUrl;
+            if (string.IsNullOrEmpty(answer))
+            {
+                return;
+            }
+            try
+            {
+                newUrl = new Uri(answer);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Url cannot be resolved");
+                return;
+            }
+            if (!string.IsNullOrEmpty(newUrl.ToString()))
+            {
+                if (MessageBox.Show(@"Are you sure you want to relocate addon to " + newUrl, @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+                if (Directory.Exists(addonDir + "\\.git"))
+                {
+                    var process = Process.Start("git", "remote rm origin");
+                    process.WaitForExit();
+                    process.StartInfo.Arguments = "remote add origin " + newUrl;
+                    process.Start();
+                }
+                else
+                {
+                    var svnClient = new SvnClient();
+                    var sourceUrl = svnClient.GetRepositoryRoot(addonDir);
+                    svnClient.Relocate(addonDir, sourceUrl, newUrl);
+                }
             }
         }
     }

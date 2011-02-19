@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerForm));
             this.listAddonsList = new System.Windows.Forms.ListView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.UpdateButton = new System.Windows.Forms.ToolStripButton();
             this.DeleteButton = new System.Windows.Forms.ToolStripButton();
             this.AddButton = new System.Windows.Forms.ToolStripButton();
+            this.EditButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +53,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.UpdateButton,
             this.DeleteButton,
-            this.AddButton});
+            this.AddButton,
+            this.EditButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(285, 25);
@@ -87,6 +90,16 @@
             this.AddButton.Text = "Add";
             this.AddButton.Click += new System.EventHandler(this.AddButtonClick);
             // 
+            // EditButton
+            // 
+            this.EditButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.EditButton.Image = ((System.Drawing.Image)(resources.GetObject("EditButton.Image")));
+            this.EditButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(47, 22);
+            this.EditButton.Text = "Edit";
+            this.EditButton.Click += new System.EventHandler(this.EditButtonClick);
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,6 +131,7 @@
         private System.Windows.Forms.ToolStripButton UpdateButton;
         private System.Windows.Forms.ToolStripButton DeleteButton;
         private System.Windows.Forms.ToolStripButton AddButton;
+        private System.Windows.Forms.ToolStripButton EditButton;
     }
 }
 
