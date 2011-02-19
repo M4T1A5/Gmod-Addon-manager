@@ -61,6 +61,44 @@ namespace GmodAddonManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to url.
+        /// </summary>
+        internal static string addRepoDefaultValue {
+            get {
+                return ResourceManager.GetString("addRepoDefaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add....
+        /// </summary>
+        internal static string addRepoHeader {
+            get {
+                return ResourceManager.GetString("addRepoHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please give the url to the repository
+        ///git support disabled.
+        /// </summary>
+        internal static string addRepoMessageGitDisabled {
+            get {
+                return ResourceManager.GetString("addRepoMessageGitDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please give the url to the repository
+        ///git support enabled.
+        /// </summary>
+        internal static string addRepoMessageGitEnabled {
+            get {
+                return ResourceManager.GetString("addRepoMessageGitEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No adddons dir found.
         ///Make sure you have installed and launched Garry&apos;s mod at least once
         ///
@@ -83,11 +121,22 @@ namespace GmodAddonManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must set the addons directory before updating.
+        ///   Looks up a localized string similar to Folder name....
         /// </summary>
-        internal static string updateAddonDirErrorMessage {
+        internal static string repoFolderHeader {
             get {
-                return ResourceManager.GetString("updateAddonDirErrorMessage", resourceCulture);
+                return ResourceManager.GetString("repoFolderHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please give name of the folder where to save
+        ///THIS MUST BE SET IF NOT TOLD OTHERWISE
+        ///Usually the name of the mod.
+        /// </summary>
+        internal static string repoFolderMessage {
+            get {
+                return ResourceManager.GetString("repoFolderMessage", resourceCulture);
             }
         }
         
@@ -106,15 +155,6 @@ namespace GmodAddonManager.Properties {
         internal static string updateCompleteMessage {
             get {
                 return ResourceManager.GetString("updateCompleteMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update error.
-        /// </summary>
-        internal static string updateErrorHeader {
-            get {
-                return ResourceManager.GetString("updateErrorHeader", resourceCulture);
             }
         }
     }

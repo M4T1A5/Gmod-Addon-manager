@@ -95,13 +95,11 @@ namespace GmodAddonManager
             string answer;
             if (Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
             {
-                answer = Microsoft.VisualBasic.Interaction.InputBox("Please give the url to the repository\ngit support enabled",
-                                                                    "Add...", "url");
+                answer = Microsoft.VisualBasic.Interaction.InputBox(Resources.addRepoMessageGitEnabled, Resources.addRepoHeader, Resources.addRepoDefaultValue);
             }
             else
             {
-                answer = Microsoft.VisualBasic.Interaction.InputBox("Please give the url to the repository\ngit support disabled",
-                                                                    "Add...", "url");
+                answer = Microsoft.VisualBasic.Interaction.InputBox(Resources.addRepoMessageGitDisabled, Resources.addRepoHeader, Resources.addRepoDefaultValue);
             }
             if (answer == string.Empty)
             {
@@ -115,16 +113,16 @@ namespace GmodAddonManager
             // Check if it is a git repository
             if (answer.LastIndexOf("git") != 0)
             {
-                var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...");
+                var dir = Microsoft.VisualBasic.Interaction.InputBox(Resources.repoFolderMessage, Resources.repoFolderHeader);
                 Process.Start("git", string.Format("clone {0} {1}", answer, _installDir + "\\" + dir)).WaitForExit();
             }
-            // ...else checkout a SVN repository
+                // ...else checkout a SVN repository
             else
             {
                 var url = new Uri(answer);
                 using (var svnClient = new SvnClient())
                 {
-                    var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...");
+                    var dir = Microsoft.VisualBasic.Interaction.InputBox(Resources.repoFolderMessage, Resources.repoFolderHeader);
                     svnClient.CheckOut(url, _installDir + "\\" + dir);
                 }
             }

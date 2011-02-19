@@ -117,35 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="updateCompleteMessage" xml:space="preserve">
-    <value>Done updating addons</value>
-    <comment>
-			Shown when all updates were completed succesfully
-		</comment>
-  </data>
   <data name="notSetString" xml:space="preserve">
     <value>ADDON DIR NOT SET
 PLEASE SET IT NOW</value>
     <comment>
 			Text to show when the addon dir is not set
-		</comment>
-  </data>
-  <data name="updateErrorHeader" xml:space="preserve">
-    <value>Update error</value>
-    <comment>
-			The header of the error message that is shown if the addons directory is not set while trying to update
-		</comment>
-  </data>
-  <data name="updateCompleteHeader" xml:space="preserve">
-    <value>Update complete</value>
-    <comment>
-			The header of the messagebox that is shown when all addons are updated succesfully
-		</comment>
-  </data>
-  <data name="updateAddonDirErrorMessage" xml:space="preserve">
-    <value>You must set the addons directory before updating</value>
-    <comment>
-			Shown if trying to update without setting the addons directory
 		</comment>
   </data>
   <data name="noAddonsDirFoundError" xml:space="preserve">
@@ -155,6 +131,45 @@ Make sure you have installed and launched Garry's mod at least once
 Program will not exit</value>
     <comment>
 			Show when addon dir not found
+		</comment>
+  </data>
+  <data name="addRepoDefaultValue" xml:space="preserve">
+    <value>url</value>
+  </data>
+  <data name="addRepoHeader" xml:space="preserve">
+    <value>Add...</value>
+  </data>
+  <data name="addRepoMessageGitDisabled" xml:space="preserve">
+    <value>Please give the url to the repository
+git support disabled</value>
+    <comment>Ask the url to the repository
+Git disabled</comment>
+  </data>
+  <data name="addRepoMessageGitEnabled" xml:space="preserve">
+    <value>Please give the url to the repository
+git support enabled</value>
+    <comment>Ask the url to the repository
+Git enabled</comment>
+  </data>
+  <data name="repoFolderHeader" xml:space="preserve">
+    <value>Folder name...</value>
+  </data>
+  <data name="repoFolderMessage" xml:space="preserve">
+    <value>Please give name of the folder where to save
+THIS MUST BE SET IF NOT TOLD OTHERWISE
+Usually the name of the mod</value>
+    <comment>Ask the name of the folder where the addon should be downloaded</comment>
+  </data>
+  <data name="updateCompleteHeader" xml:space="preserve">
+    <value>Update complete</value>
+    <comment>
+			The header of the messagebox that is shown when all addons are updated succesfully
+		</comment>
+  </data>
+  <data name="updateCompleteMessage" xml:space="preserve">
+    <value>Done updating addons</value>
+    <comment>
+			Shown when all updates were completed succesfully
 		</comment>
   </data>
 </root>
