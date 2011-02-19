@@ -61,6 +61,18 @@ namespace GmodAddonManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No adddons dir found.
+        ///Make sure you have installed and launched Garry&apos;s mod at least once
+        ///
+        ///Program will not exit.
+        /// </summary>
+        internal static string noAddonsDirFoundError {
+            get {
+                return ResourceManager.GetString("noAddonsDirFoundError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADDON DIR NOT SET
         ///PLEASE SET IT NOW.
         /// </summary>

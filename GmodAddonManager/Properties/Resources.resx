@@ -148,4 +148,13 @@ PLEASE SET IT NOW</value>
 			Shown if trying to update without setting the addons directory
 		</comment>
   </data>
+  <data name="noAddonsDirFoundError" xml:space="preserve">
+    <value>No adddons dir found.
+Make sure you have installed and launched Garry's mod at least once
+
+Program will not exit</value>
+    <comment>
+			Show when addon dir not found
+		</comment>
+  </data>
 </root>

@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.updateBut = new System.Windows.Forms.Button();
-            this.setDirBut = new System.Windows.Forms.Button();
-            this.dirSetLabel = new System.Windows.Forms.Label();
             this.listAddonsList = new System.Windows.Forms.ListView();
             this.addButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
@@ -40,45 +38,25 @@
             // 
             this.updateBut.Location = new System.Drawing.Point(12, 12);
             this.updateBut.Name = "updateBut";
-            this.updateBut.Size = new System.Drawing.Size(100, 23);
+            this.updateBut.Size = new System.Drawing.Size(268, 52);
             this.updateBut.TabIndex = 0;
             this.updateBut.Text = "Update Addons";
             this.updateBut.UseVisualStyleBackColor = true;
             this.updateBut.Click += new System.EventHandler(this.UpdateButClick);
-            // 
-            // setDirBut
-            // 
-            this.setDirBut.Location = new System.Drawing.Point(172, 12);
-            this.setDirBut.Name = "setDirBut";
-            this.setDirBut.Size = new System.Drawing.Size(100, 23);
-            this.setDirBut.TabIndex = 1;
-            this.setDirBut.Text = "Set Addons Dir";
-            this.setDirBut.UseVisualStyleBackColor = true;
-            this.setDirBut.Click += new System.EventHandler(this.SetDirButClick);
-            // 
-            // dirSetLabel
-            // 
-            this.dirSetLabel.AutoSize = true;
-            this.dirSetLabel.BackColor = System.Drawing.Color.Transparent;
-            this.dirSetLabel.Location = new System.Drawing.Point(163, 38);
-            this.dirSetLabel.Name = "dirSetLabel";
-            this.dirSetLabel.Size = new System.Drawing.Size(83, 13);
-            this.dirSetLabel.TabIndex = 2;
-            this.dirSetLabel.Text = "Placeholder text";
             // 
             // listAddonsList
             // 
             this.listAddonsList.BackColor = System.Drawing.Color.White;
             this.listAddonsList.Location = new System.Drawing.Point(12, 85);
             this.listAddonsList.Name = "listAddonsList";
-            this.listAddonsList.Size = new System.Drawing.Size(165, 165);
+            this.listAddonsList.Size = new System.Drawing.Size(187, 181);
             this.listAddonsList.TabIndex = 3;
             this.listAddonsList.UseCompatibleStateImageBehavior = false;
             this.listAddonsList.View = System.Windows.Forms.View.List;
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(183, 85);
+            this.addButton.Location = new System.Drawing.Point(205, 85);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 4;
@@ -88,7 +66,7 @@
             // 
             // removeButton
             // 
-            this.removeButton.Location = new System.Drawing.Point(183, 114);
+            this.removeButton.Location = new System.Drawing.Point(205, 114);
             this.removeButton.Name = "removeButton";
             this.removeButton.Size = new System.Drawing.Size(75, 23);
             this.removeButton.TabIndex = 5;
@@ -102,12 +80,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(292, 278);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.listAddonsList);
-            this.Controls.Add(this.dirSetLabel);
-            this.Controls.Add(this.setDirBut);
             this.Controls.Add(this.updateBut);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -115,18 +91,15 @@
             this.MaximizeBox = false;
             this.Name = "ManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Garry\'s mod Addon manager";
+            this.Text = "Garry\'s mod Addon Manager";
             this.TransparencyKey = System.Drawing.Color.Maroon;
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button updateBut;
-        private System.Windows.Forms.Button setDirBut;
-        private System.Windows.Forms.Label dirSetLabel;
         private System.Windows.Forms.ListView listAddonsList;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button removeButton;

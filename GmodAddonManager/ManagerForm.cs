@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GmodAddonManager.Properties;
 using SharpSvn;
+using Microsoft.Win32;
 
 namespace GmodAddonManager
 {
@@ -16,103 +17,86 @@ namespace GmodAddonManager
             InitializeStuff();
         }
 
+        private static RegistryKey _reg = Registry.CurrentUser;
+        private static string _installDir;
+
         ///<summary>
         /// Show the user if addon dir is not set and if it is list all addons in the listView
         /// </summary>
-        public void InitializeStuff()
+        private void InitializeStuff()
         {
-            if (Settings.Default.AddonDir == String.Empty)
+            _reg = _reg.OpenSubKey("Software\\Valve\\Steam");
+            _installDir = _reg.GetValue("SteamPath") + "\\Steamapps\\";
+            foreach (var dir in Directory.GetDirectories(_installDir))
             {
-                dirSetLabel.Text = Resources.notSetString;
-            }
-            if (!string.IsNullOrEmpty(Settings.Default.AddonDir))
-            {
-                dirSetLabel.Text = String.Empty;
-                listAddonsList.Items.Clear();
-                foreach (var dir in Directory.GetDirectories(Settings.Default.AddonDir))
+                if (!dir.ToLower().Contains("common") && !dir.ToLower().Contains("sourcemods"))
                 {
-                    if (Directory.Exists(dir + "\\.svn") || (Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0))
-                    {
-                        listAddonsList.Items.Add(dir.Substring(dir.LastIndexOf("\\") + 1));
-                    }
+                    _installDir = string.Empty;
+                    _installDir = dir + "\\garrysmod\\garrysmod\\addons";
                 }
             }
+            if (!Directory.Exists(_installDir))
+            {
+                MessageBox.Show(Resources.noAddonsDirFoundError);
+                Environment.Exit(0);
+            }
+            UpdateStuff();
         }
 
-        private void SetDirButClick(object sender, EventArgs e)
+        private void UpdateStuff()
         {
-            // Ask user for the addon folder
-            var folderBrowserDialog = new FolderBrowserDialog();
-            folderBrowserDialog.ShowDialog();
-            // Check if user actually gave a directory and save it to settings
-            if (folderBrowserDialog.SelectedPath != String.Empty)
+            listAddonsList.Items.Clear();
+            foreach (var dir in Directory.GetDirectories(_installDir))
             {
-                if (folderBrowserDialog.SelectedPath.ToLower().IndexOf("addons") != 0)
+                if (Directory.Exists(dir + "\\.svn") || ( Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0 ))
                 {
-                    Settings.Default.AddonDir = folderBrowserDialog.SelectedPath;
-                    Settings.Default.Save();
-                    InitializeStuff();
+                    listAddonsList.Items.Add(dir.Substring(dir.LastIndexOf("\\") + 1));
                 }
             }
         }
 
         private void UpdateButClick(object sender, EventArgs e)
         {
-            // Check if the addon dir is set and then update every SVN repository
-            if (!string.IsNullOrEmpty(Settings.Default.AddonDir))
-            {
-                Parallel.ForEach(Directory.GetDirectories(Settings.Default.AddonDir), dir =>
-                                                                                                 {
-                                                                                                     // Check if the addon is updated by SVN
-                                                                                                     if (Directory.Exists(dir + "\\.svn"))
-                                                                                                     {
-
-                                                                                                         try
-                                                                                                         {
-                                                                                                             var svnClient = new SvnClient();
-                                                                                                             svnClient.Update(dir);
-                                                                                                         }
-                                                                                                         catch (SvnWorkingCopyLockException)
-                                                                                                         {
-                                                                                                             var svnClient = new SvnClient();
-                                                                                                             svnClient.CleanUp(dir);
-                                                                                                             svnClient.Update(dir);
-                                                                                                             throw;
-                                                                                                         }
-                                                                                                     }
-                                                                                                     // Check if there are any git addons and if the user has git installed and if both are true then "update" the addons
-                                                                                                     else if (Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
-                                                                                                     {
-                                                                                                         var processInfo = new ProcessStartInfo("git") {WorkingDirectory = dir, Arguments = "fetch"};
-                                                                                                         var process = Process.Start(processInfo);
-                                                                                                         process.WaitForExit();
-                                                                                                         process.StartInfo.Arguments = "merge origin/master";
-                                                                                                         process.Start();
-                                                                                                     }
-                                                                                                 });
-                MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
-            }
-            // ...else give user eror that the dir is not set
-            else
-            {
-                MessageBox.Show(Resources.updateAddonDirErrorMessage, Resources.updateErrorHeader);
-            }
+            // Update all repositories in a nice threaded way
+            Parallel.ForEach(Directory.GetDirectories(_installDir), dir =>
+                                                                    {
+                                                                        // Check if the addon is updated by SVN
+                                                                        if (Directory.Exists(dir + "\\.svn"))
+                                                                        {
+                                                                            try
+                                                                            {
+                                                                                var svnClient = new SvnClient();
+                                                                                svnClient.Update(dir);
+                                                                            }
+                                                                            catch (SvnWorkingCopyLockException)
+                                                                            {
+                                                                                var svnClient = new SvnClient();
+                                                                                svnClient.CleanUp(dir);
+                                                                                svnClient.Update(dir);
+                                                                                throw;
+                                                                            }
+                                                                        }
+                                                                            // Check if there are any git addons and if the user has git installed and if both are true then "update" the addons
+                                                                        else if (Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
+                                                                        {
+                                                                            var processInfo = new ProcessStartInfo("git") {WorkingDirectory = dir, Arguments = "fetch"};
+                                                                            var process = Process.Start(processInfo);
+                                                                            process.WaitForExit();
+                                                                            process.StartInfo.Arguments = "merge origin/master";
+                                                                            process.Start();
+                                                                        }
+                                                                    });
+            MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
         }
 
         private void AddButtonClick(object sender, EventArgs e)
         {
-            // Warn user if addon directory is not set
-            if (Settings.Default.AddonDir == String.Empty)
-            {
-                MessageBox.Show(Resources.updateAddonDirErrorMessage, Resources.updateErrorHeader);
-                return;
-            }
             // Get the url to the repository
             string answer;
             if (Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
             {
                 answer = Microsoft.VisualBasic.Interaction.InputBox("Please give the url to the repository\ngit support enabled",
-                                                                    "Add...", "url"); 
+                                                                    "Add...", "url");
             }
             else
             {
@@ -128,32 +112,32 @@ namespace GmodAddonManager
                 MessageBox.Show(@"You must give the url", @"No url given");
                 return;
             }
+            // Check if it is a git repository
             if (answer.LastIndexOf("git") != 0)
             {
-                var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...", "");
-                Process.Start("git", string.Format("clone {0} {1}", answer, Settings.Default.AddonDir + "\\" + dir)).WaitForExit();
+                var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...");
+                Process.Start("git", string.Format("clone {0} {1}", answer, _installDir + "\\" + dir)).WaitForExit();
             }
-                // ...else checkout a SVN repository
+            // ...else checkout a SVN repository
             else
             {
                 var url = new Uri(answer);
                 using (var svnClient = new SvnClient())
                 {
                     var dir = Microsoft.VisualBasic.Interaction.InputBox("Please give name of the folder where to save\nTHIS MUST BE SET IF NOT TOLD OTHERWISE\nUsually the name of the mod", "Folder name...");
-                    svnClient.CheckOut(url, Settings.Default.AddonDir + "\\" + dir);
+                    svnClient.CheckOut(url, _installDir + "\\" + dir);
                 }
             }
-            InitializeStuff();
-            // Check if the url is for a git repository
+            UpdateStuff();
         }
 
         private void RemoveButtonClick(object sender, EventArgs e)
         {
             // Make sure user wants to remove the addon and remove if so
-            DialogResult dlgResult = DialogResult.None;
+            DialogResult dlgResult;
             if (listAddonsList.SelectedItems.Count == 1)
             {
-                dlgResult = MessageBox.Show(string.Format("Do you really want to remove {0}?", listAddonsList.SelectedItems[0].Text), @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question); 
+                dlgResult = MessageBox.Show(string.Format("Do you really want to remove {0}?", listAddonsList.SelectedItems[0].Text), @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
             else
             {
@@ -163,12 +147,12 @@ namespace GmodAddonManager
             {
                 foreach (ListViewItem item in listAddonsList.SelectedItems)
                 {
-                    DeleteSubFolders(Settings.Default.AddonDir + "\\" + item.Text, ".svn", true);
-                    DeleteSubFolders(Settings.Default.AddonDir + "\\" + item.Text, ".git", true);
-                    Directory.Delete(Settings.Default.AddonDir + "\\" + item.Text, true);
+                    DeleteSubFolders(_installDir + "\\" + item.Text, ".svn", true);
+                    DeleteSubFolders(_installDir + "\\" + item.Text, ".git", true);
+                    Directory.Delete(_installDir + "\\" + item.Text, true);
                 }
             }
-            InitializeStuff();
+            UpdateStuff();
         }
 
         /// <summary>

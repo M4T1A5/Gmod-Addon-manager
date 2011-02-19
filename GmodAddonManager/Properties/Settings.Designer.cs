@@ -22,17 +22,5 @@ namespace GmodAddonManager.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AddonDir {
-            get {
-                return ((string)(this["AddonDir"]));
-            }
-            set {
-                this["AddonDir"] = value;
-            }
-        }
     }
 }

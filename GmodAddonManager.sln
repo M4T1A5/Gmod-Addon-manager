@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.txt = README.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GmodAddonManager", "GmodSvnUpdater\GmodAddonManager.csproj", "{276B88B2-0CC7-4723-AB72-C06DC062D942}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GmodAddonManager", "GmodAddonManager\GmodAddonManager.csproj", "{276B88B2-0CC7-4723-AB72-C06DC062D942}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
