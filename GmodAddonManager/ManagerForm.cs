@@ -57,38 +57,74 @@ namespace GmodAddonManager
 
         private void UpdateButtonClick(object sender, EventArgs e)
         {
+            UpdateButton.Enabled = false;
             UpdateButton.Text = Resources.updateButtonUpdating;
-            // Update all repositories in a nice threaded way
-            Parallel.ForEach(Directory.GetDirectories(_installDir), dir =>
-                                                                    {
-                                                                        // Check if the addon is updated by SVN
-                                                                        if (Directory.Exists(dir + "\\.svn"))
+            // Check if user has selected any addons in the list. if not update all
+            if (listAddonsList.SelectedItems.Count != 0)
+            {
+                foreach (ListViewItem item in listAddonsList.SelectedItems)
+                {
+                    var addonDir = _installDir + "\\" + item.Text;
+                    if (Directory.Exists(addonDir + "\\.svn"))
+                    {
+                        try
+                        {
+                            var svnClient = new SvnClient();
+                            svnClient.Update(addonDir);
+                        }
+                        catch (SvnWorkingCopyLockException)
+                        {
+                            var svnClient = new SvnClient();
+                            svnClient.CleanUp(addonDir);
+                            svnClient.Update(addonDir);
+                            throw;
+                        }
+                    }
+                    else if (Directory.Exists(addonDir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
+                    {
+                        var processInfo = new ProcessStartInfo("git") {WorkingDirectory = addonDir, Arguments = "fetch"};
+                        var process = Process.Start(processInfo);
+                        process.WaitForExit();
+                        process.StartInfo.Arguments = "merge origin/master";
+                        process.Start();
+                    }
+                }
+            }
+            else
+            {
+                // Update all repositories in a nice threaded way
+                Parallel.ForEach(Directory.GetDirectories(_installDir), dir =>
                                                                         {
-                                                                            try
+                                                                            // Check if the addon is updated by SVN
+                                                                            if (Directory.Exists(dir + "\\.svn"))
                                                                             {
-                                                                                var svnClient = new SvnClient();
-                                                                                svnClient.Update(dir);
+                                                                                try
+                                                                                {
+                                                                                    var svnClient = new SvnClient();
+                                                                                    svnClient.Update(dir);
+                                                                                }
+                                                                                catch (SvnWorkingCopyLockException)
+                                                                                {
+                                                                                    var svnClient = new SvnClient();
+                                                                                    svnClient.CleanUp(dir);
+                                                                                    svnClient.Update(dir);
+                                                                                    throw;
+                                                                                }
                                                                             }
-                                                                            catch (SvnWorkingCopyLockException)
+                                                                                // Check if there are any git addons and if the user has git installed and if both are true then "update" the addons
+                                                                            else if (Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
                                                                             {
-                                                                                var svnClient = new SvnClient();
-                                                                                svnClient.CleanUp(dir);
-                                                                                svnClient.Update(dir);
-                                                                                throw;
+                                                                                var processInfo = new ProcessStartInfo("git") {WorkingDirectory = dir, Arguments = "fetch"};
+                                                                                var process = Process.Start(processInfo);
+                                                                                process.WaitForExit();
+                                                                                process.StartInfo.Arguments = "merge origin/master";
+                                                                                process.Start();
                                                                             }
-                                                                        }
-                                                                            // Check if there are any git addons and if the user has git installed and if both are true then "update" the addons
-                                                                        else if (Directory.Exists(dir + "\\.git") && Environment.ExpandEnvironmentVariables("path").IndexOf("git") != 0)
-                                                                        {
-                                                                            var processInfo = new ProcessStartInfo("git") {WorkingDirectory = dir, Arguments = "fetch"};
-                                                                            var process = Process.Start(processInfo);
-                                                                            process.WaitForExit();
-                                                                            process.StartInfo.Arguments = "merge origin/master";
-                                                                            process.Start();
-                                                                        }
-                                                                    });
+                                                                        });
+                MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
+            }
             UpdateButton.Text = Resources.updateButDefaultText;
-            MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
+            UpdateButton.Enabled = true;
         }
 
         private void AddButtonClick(object sender, EventArgs e)
