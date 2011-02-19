@@ -117,43 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="notSetString" xml:space="preserve">
-    <value>ADDON DIR NOT SET
-PLEASE SET IT NOW</value>
-    <comment>
-			Text to show when the addon dir is not set
-		</comment>
-  </data>
-  <data name="noAddonsDirFoundError" xml:space="preserve">
-    <value>No adddons dir found.
-Make sure you have installed and launched Garry's mod at least once
-
-Program will not exit</value>
-    <comment>
-			Show when addon dir not found
-		</comment>
-  </data>
-  <data name="addRepoDefaultValue" xml:space="preserve">
-    <value>url</value>
-  </data>
-  <data name="addRepoHeader" xml:space="preserve">
-    <value>Add...</value>
-  </data>
-  <data name="addRepoMessageGitDisabled" xml:space="preserve">
-    <value>Please give the url to the repository
-git support disabled</value>
-    <comment>Ask the url to the repository
-Git disabled</comment>
-  </data>
-  <data name="addRepoMessageGitEnabled" xml:space="preserve">
-    <value>Please give the url to the repository
-git support enabled</value>
-    <comment>Ask the url to the repository
-Git enabled</comment>
-  </data>
-  <data name="repoFolderHeader" xml:space="preserve">
-    <value>Folder name...</value>
-  </data>
   <data name="repoFolderMessage" xml:space="preserve">
     <value>Please give name of the folder where to save
 THIS MUST BE SET IF NOT TOLD OTHERWISE
@@ -171,5 +134,58 @@ Usually the name of the mod</value>
     <comment>
 			Shown when all updates were completed succesfully
 		</comment>
+  </data>
+  <data name="updateButtonUpdating" xml:space="preserve">
+    <value>Updating...</value>
+  </data>
+  <data name="notSetString" xml:space="preserve">
+    <value>ADDON DIR NOT SET
+PLEASE SET IT NOW</value>
+    <comment>
+			Text to show when the addon dir is not set
+		</comment>
+  </data>
+  <data name="repoFolderHeader" xml:space="preserve">
+    <value>Folder name...</value>
+  </data>
+  <data name="updateButDefaultText" xml:space="preserve">
+    <value>Update Addons</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addRepoMessageGitEnabled" xml:space="preserve">
+    <value>Please give the url to the repository
+git support enabled</value>
+    <comment>Ask the url to the repository
+Git enabled</comment>
+  </data>
+  <data name="addRepoHeader" xml:space="preserve">
+    <value>Add...</value>
+  </data>
+  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noAddonsDirFoundError" xml:space="preserve">
+    <value>No adddons dir found.
+Make sure you have installed and launched Garry's mod at least once
+
+Program will not exit</value>
+    <comment>
+			Show when addon dir not found
+		</comment>
+  </data>
+  <data name="addRepoDefaultValue" xml:space="preserve">
+    <value>url</value>
+  </data>
+  <data name="addRepoMessageGitDisabled" xml:space="preserve">
+    <value>Please give the url to the repository
+git support disabled</value>
+    <comment>Ask the url to the repository
+Git disabled</comment>
+  </data>
+  <data name="arrow_refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -60,6 +60,13 @@ namespace GmodAddonManager.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap add {
+            get {
+                object obj = ResourceManager.GetObject("add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to url.
         /// </summary>
@@ -95,6 +102,20 @@ namespace GmodAddonManager.Properties {
         internal static string addRepoMessageGitEnabled {
             get {
                 return ResourceManager.GetString("addRepoMessageGitEnabled", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap arrow_refresh {
+            get {
+                object obj = ResourceManager.GetObject("arrow_refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap delete {
+            get {
+                object obj = ResourceManager.GetObject("delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -137,6 +158,24 @@ namespace GmodAddonManager.Properties {
         internal static string repoFolderMessage {
             get {
                 return ResourceManager.GetString("repoFolderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Addons.
+        /// </summary>
+        internal static string updateButDefaultText {
+            get {
+                return ResourceManager.GetString("updateButDefaultText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating....
+        /// </summary>
+        internal static string updateButtonUpdating {
+            get {
+                return ResourceManager.GetString("updateButtonUpdating", resourceCulture);
             }
         }
         

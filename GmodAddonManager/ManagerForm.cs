@@ -57,6 +57,9 @@ namespace GmodAddonManager
 
         private void UpdateButClick(object sender, EventArgs e)
         {
+            updateBut.Text = Resources.updateButtonUpdating;
+            // Make sure the text actually does change before updating anything
+            System.Threading.Thread.Sleep(5);
             // Update all repositories in a nice threaded way
             Parallel.ForEach(Directory.GetDirectories(_installDir), dir =>
                                                                     {
@@ -86,6 +89,7 @@ namespace GmodAddonManager
                                                                             process.Start();
                                                                         }
                                                                     });
+            updateBut.Text = Resources.updateButDefaultText;
             MessageBox.Show(Resources.updateCompleteMessage, Resources.updateCompleteHeader);
         }
 
