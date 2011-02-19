@@ -248,35 +248,38 @@ namespace GmodAddonManager
             }
             var addonDir = _installDir + "\\" + listAddonsList.SelectedItems[0].Text;
             var answer = Microsoft.VisualBasic.Interaction.InputBox("Give the new url of the repository");
-            Uri newUrl;
-            if (string.IsNullOrEmpty(answer))
+            if (!string.IsNullOrEmpty(answer))
             {
-                return;
-            }
-            try
-            {
-                newUrl = new Uri(answer);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(@"Url cannot be resolved");
-                return;
-            }
-            if (!string.IsNullOrEmpty(newUrl.ToString()))
-            {
-                if (MessageBox.Show(@"Are you sure you want to relocate addon to " + newUrl, @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show(@"Are you sure you want to relocate addon to " + answer, @"Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
                 }
                 if (Directory.Exists(addonDir + "\\.git"))
                 {
-                    var process = Process.Start("git", "remote rm origin");
-                    process.WaitForExit();
-                    process.StartInfo.Arguments = "remote add origin " + newUrl;
-                    process.Start();
+                    if (answer.IndexOf(".git") != 0)
+                    {
+                        var process = Process.Start("git", "remote rm origin");
+                        process.WaitForExit();
+                        process.StartInfo.Arguments = "remote add origin " + answer;
+                        process.Start();
+                    }
+                    else
+                    {
+                        MessageBox.Show(@"Url cannot be resolved", @"Cannot resolve Url");
+                    }
                 }
                 else
                 {
+                    Uri newUrl;
+                    try
+                    {
+                        newUrl = new Uri(answer);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(@"Url cannot be resolved", @"Cannot resolve Url");
+                        return;
+                    }
                     var svnClient = new SvnClient();
                     var sourceUrl = svnClient.GetRepositoryRoot(addonDir);
                     svnClient.Relocate(addonDir, sourceUrl, newUrl);
