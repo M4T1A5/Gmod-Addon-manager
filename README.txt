@@ -3,7 +3,7 @@ Garry's mod SVN manager
 Used to manage SVN based addons for Garry's mod
 
 License
--------------------------------------------
+--------------------------------------------
 Copyright (C) 2011 by Matias Kangasjärvelä
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
